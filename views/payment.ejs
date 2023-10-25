@@ -1,0 +1,271 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <!-- basic -->
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <!-- mobile metas -->
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="viewport" content="initial-scale=1, maximum-scale=1">
+    <!-- site metas -->
+    <title>uniphone</title>
+    <meta name="keywords" content="">
+    <meta name="description" content="">
+    <meta name="author" content="">
+    <!-- bootstrap css -->
+    <link rel="stylesheet" href="css/bootstrap.min.css">
+    <!-- style css -->
+    <link rel="stylesheet" href="css/style.css">
+    <!-- Responsive-->
+    <link rel="stylesheet" href="css/responsive.css">
+    <!-- fevicon -->
+    <link rel="icon" href="images/fevicon.png" type="image/gif" />
+    <!-- Scrollbar Custom CSS -->
+    <link rel="stylesheet" href="css/jquery.mCustomScrollbar.min.css">
+    <!-- Tweaks for older IEs-->
+    <link rel="stylesheet" href="https://netdna.bootstrapcdn.com/font-awesome/4.0.3/css/font-awesome.css">
+    <!-- owl stylesheets -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+    <link rel="stylesheet" href="css/owl.carousel.min.css">
+    <link rel="stylesheet" href="css/owl.theme.default.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/fancybox/2.1.5/jquery.fancybox.min.css" media="screen">
+    <!--[if lt IE 9]>
+      <script src="https://oss.maxcdn.com/html5shiv/3.7.3/html5shiv.min.js"></script>
+      <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script><![endif]-->
+    <style>
+        #required{
+            color: red;
+        }
+        .form input[text]{
+            width: 60%;
+        }
+        .product{
+            margin-top: 20px;
+        }
+        .product td,.product th{
+            border: 1px solid black;
+        }
+        .pay_details{
+            margin-top: 20px;
+        }
+        .pay_button{
+            margin-top: 20px;
+            margin-bottom: 30px;
+        }
+        .pay_button button{
+            width: 100px;
+            height: 50px;
+            background: red;
+            color: white;
+            margin-left: 20px;
+        }
+        .pay_button button:hover{
+            background-color: white;
+            color: black;
+        }
+    </style>
+</head>
+<body class="main-layout ">
+    <!-- loader  -->
+    <div class="loader_bg">
+        <div class="loader"><img src="images/loading.gif" alt="#" /></div>
+    </div>
+    <header>
+        <!-- header inner -->
+        <div class="header" style="background-color: red;width: 100%;border: 1px solid black; height: 60px;">
+            <div class="btn" style="float: left;">
+                <% if (!payments) { %>
+                    <a href="/cart"><img src="icon/back.png" width="30px"></a>
+                <% } else { %>
+                    <button onclick="del_pay('<%= payments.id %>')"><img src="icon/back.png" width="30px"></button>
+                <% } %>
+                
+            </div>
+            <center>
+                <div class="icon_mid" style="float: left;padding-left: 40%;">
+                    <div class="logo">
+                        <img src="images/logo.png" alt="#" width="150px" height="50px">
+                    </div>
+                </div>
+            </center>
+        </div>
+        <!-- end header inner -->
+    </header>
+    <div class="brand_color">
+        <div class="container">
+            <div class="row">
+                <div class="col-md-12">
+                    <div class="titlepage">
+                        <h2>Checkout</h2>
+                    </div>
+                    
+                </div>
+            </div>
+        </div>
+    </div>
+    <form action="#link" method="POST">
+        <div class="form">
+            <div class="container" style="display: grid;grid-template-columns: 60% 40%;">
+                <div class="b_1">
+                            <h2>Billing Details</h2>
+                            <label for="f_name">First Name <span id="required">*</span></label>
+                            <p><input type="text" name="f_name"></p>
+                            <p><label for="l_name">Last Name <span id="required">*</span></label></p>
+                            <p><input type="text" name="l_name"></p>
+                            <p><label for="address">Address <span id="required">*</span></label></p>
+                            <p><input type="text" name="address"></p>   
+                            <p><label for="town">Town / City / State <span id="required">*</span></label></p>
+                            <p><input type="text" name="town"></p>
+                            <p><label for="zip">Postcode / ZIP <span id="required">*</span></label></p>
+                            <p><input type="text" name="zip"></p>
+                            <p><label for="email">Email Address <span id="required">*</span></label></p>
+                            <p><input type="text" name="email"></p>
+                            <p><label for="phone">Phone <span id="required">*</span></label></p>
+                            <p><input type="text" name="phone"></p>
+                </div>
+                <div class="b_2">
+                    <h2>Ship to a differents address</h2>>
+                    <label for="note">Order Notes</label>
+                    <p><textarea name="note" cols="40" rows="10"></textarea></p>
+                </div>
+            </div>
+            <div class="product">
+                <div class="container">
+                    <h2>Your Order</h2>
+                    <table style="width: 100%;">
+                        <tr>
+                            <th style="width: 60%;">Product</th>
+                            <th style="width: 40%;">Total</th>
+                        </tr>
+                        <% if (!payments) { %>
+                            <p></p>
+                        <% } else { %>
+                            <tr>
+                                <td><%= payments.name %>( <%= payments.rom %> GB ,<%= payments.color %>) </td>
+                                <td>Rp. <%= payments.price %> </td>
+                            </tr>
+                            <tr>
+                                <td>Subtotal <%= payments.quantity %> pcs</td>
+                                <td>Rp. <%= payments.total %> </td>
+                            </tr>
+                            <tr>
+                                <td>Shipping and Handling</td>
+                                <td>Rp. 250.000</td>
+                            </tr>
+                            <tr>
+                                <td>Total</td>
+                                <td>Rp. <%= payments.total + 250000 %> </td>
+                            </tr>
+                        <% } %>
+                        
+                    </table>
+                </div>
+            </div>
+            <div class="pay_details">
+                <div class="container">
+                    <input type="radio" value="direct" style="margin-right: 5px;">Direct Bank Transfer
+                    <p><input type="radio" value="cod" style="margin-right: 5px;">Cash on Delivery</p>
+                </div>
+            </div>
+        </div>
+    </form>
+    <div class="pay_button">
+        <div class="container">
+            <% if (!payments) { %>
+                <a href="/cart"><button>Place Order</button></a>
+            <% } else { %>
+                <button onclick="del_cart('<%= payments.cart_id %>');del_pay('<%= payments.id %>')">Place Order</button>
+            <% } %>
+        </div>
+    </div>
+
+    <footer>
+        <div id="contact" class="footer">
+            <div class="container">
+                <div class="row pdn-top-30">
+                    <div class="col-md-12 ">
+                        <div class="footer-box">
+                            <div class="headinga">
+                                <h3>Address</h3>
+                                <span>Medan</span>
+                                <p>(+62)8135269343
+                                    <br>uniphone@gmail.com</p>
+                            </div>
+                            <ul class="location_icon">
+                                <li> <a href="https://www.facebook.com"><i class="fa fa-facebook-f"></i></a></li>
+                                <li> <a href="https://twitter.com/?lang=en"><i class="fa fa-twitter"></i></a></li>
+                                <li> <a href="https://www.instagram.com/"><i class="fa fa-instagram"></i></a></li>
+
+                            </ul>
+                            <div class="menu-bottom">
+                                <ul class="link">
+                                    <li> <a href="index.html">Home</a></li>
+                                    <li> <a href="about.html">About</a></li>
+                                    <li> <a href="brand.html">Brand </a></li>
+                                    <li> <a href="accessories.html">Accescories </a></li>
+                                    <li> <a href="special.html">Specials  </a></li>
+                                    <li> <a href="contact.html"> Contact us</a></li>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="copyright">
+                <div class="container">
+                    <p>Copyright &copy; 2021 UniPhone. All rights reserved</p>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    
+    <!-- Javascript files-->
+    <script src="js/jquery.min.js"></script>
+    <script src="js/popper.min.js"></script>
+    <script src="js/bootstrap.bundle.min.js"></script>
+    <script src="js/jquery-3.0.0.min.js"></script>
+    <script src="js/plugin.js"></script>
+    <!-- sidebar -->
+    <script src="js/jquery.mCustomScrollbar.concat.min.js"></script>
+    <script src="js/custom.js"></script>
+    <!-- javascript -->
+    <script src="js/owl.carousel.js"></script>
+    <script src="https:cdnjs.cloudflare.com/ajax/libs/fancybox/2.1.5/jquery.fancybox.min.js"></script>
+    <script>
+        $(document).ready(function() {
+            $(".fancybox").fancybox({
+                openEffect: "none",
+                closeEffect: "none"
+            });
+
+            $(".zoom").hover(function() {
+
+                $(this).addClass('transition');
+            }, function() {
+
+                $(this).removeClass('transition');
+            });
+        });
+    </script>
+    <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
+    <script>
+        let del_cart = (id) => {
+            axios.delete('/api/cart/' + id).then((result) => {
+                location.reload();
+            }).catch((err) => {
+                alert('error ' + err)
+            });
+        }
+    </script>
+    <script>
+        let del_pay = (id) => {
+            axios.delete('/api/pay/' + id).then((result) => {
+                window.location = "/cart";
+            }).catch((err) => {
+                alert('error ' + err)
+            });
+        }
+    </script>
+</body>
+</html>

@@ -1,0 +1,399 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <!-- basic -->
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <!-- mobile metas -->
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="viewport" content="initial-scale=1, maximum-scale=1">
+    <!-- site metas -->
+    <title>uniphone</title>
+    <meta name="keywords" content="">
+    <meta name="description" content="">
+    <meta name="author" content="">
+    <!-- bootstrap css -->
+    <link rel="stylesheet" href="css/bootstrap.min.css">
+    <!-- style css -->
+    <link rel="stylesheet" href="css/productdetails.css">
+    <!-- Responsive-->
+    <link rel="stylesheet" href="css/responsive.css">
+    <!-- fevicon -->
+    <link rel="icon" href="images/fevicon.png" type="image/gif" />
+    <!-- Scrollbar Custom CSS -->
+    <link rel="stylesheet" href="css/jquery.mCustomScrollbar.min.css">
+    <!-- Tweaks for older IEs-->
+    <link rel="stylesheet" href="https://netdna.bootstrapcdn.com/font-awesome/4.0.3/css/font-awesome.css">
+    <!-- owl stylesheets -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+    <link rel="stylesheet" href="css/owl.carousel.min.css">
+    <link rel="stylesheet" href="css/owl.theme.default.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/fancybox/2.1.5/jquery.fancybox.min.css"
+        media="screen">
+    <style>
+        .search input:hover {
+            background-color: transparent;
+            border: none;
+            outline: none;
+        }
+    </style>
+    <!--[if lt IE 9]>
+      <script src="https://oss.maxcdn.com/html5shiv/3.7.3/html5shiv.min.js"></script>
+      <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script><![endif]-->
+</head>
+
+<body class="main-layout">
+    <div class="loader_bg">
+        <div class="loader"><img src="images/loading.gif" alt="#" /></div>
+    </div>
+    <div class="header" style="background-color: red;width: 100%;border: 1px solid black; height: 60px;">
+        <div class="btn" style="float: left;">
+            <a href="/product"><button><img src="icon/back.png" width="30px"></button></a>
+        </div>
+        <center>
+            <div class="icon_mid" style="float: left;padding-left: 40%;">
+                <div class="logo">
+                    <a href="/"><img src="images/logo.png" alt="#" width="150px" height="50px"></a>
+                </div>
+            </div>
+        </center>
+        <div class="btn" style="float: right;">
+            <% if (!i_user) { %>
+                <div class="cart" style="clear: both; float: right;">
+                    <a href="/login"><img src="icon/cart.png" width="30px"></a>
+                </div>
+                <div class="home" style="float: right;padding-right: 20px;">
+                    <a href="/login"><img src="icon/wishlist.png" width="30px"></a>
+                </div>
+            <% } else { %>
+                <div class="cart" style="clear: both; float: right;">
+                    <a href="/cart"><img src="icon/cart.png" width="30px"></a>
+                </div>
+                <div class="home" style="float: right;padding-right: 20px;">
+                    <a href="/wish"><img src="icon/wishlist.png" width="30px"></a>
+                </div>
+            <% } %>
+        </div>
+    </div>
+    <div class="container">
+        <div class="row">
+            <div class="col-xs-4 item-photo">
+                <img style="max-width:100%;" src=<%=products.photo %> />
+            </div>
+            <div class="col-xs-5" style="border:0px solid gray;margin-top: 40px;">
+                <h3>
+                    <%= products.name %>
+                </h3>
+                <h5 style="color:#337ab7">Product by : <a href="#">
+                        <%= products.brand %>
+                    </a></h5>
+
+                <h6 class="title-price"><small>PRICE</small></h6>
+                <h3 style="margin-top:0px;">Rp. <%= products.price %> - <%= products.price3 %>
+                </h3>
+
+                <div class="section">
+                    <h6 class="title-attr" style="margin-top:15px;"><small>COLOR</small></h6>
+                    <div>
+                        <div class="attr2" id="color1">
+                            <%= products.color %>
+                        </div>
+                        <div class="attr2" id="color2">
+                            <%= products.color2 %>
+                        </div>
+                        <div class="attr2" id="color3">
+                            <%= products.color3 %>
+                        </div>
+                    </div>
+                </div>
+                <div class="section" style="padding-bottom:5px;">
+                    <h6 class="title-attr"><small>ROM</small></h6>
+                    <div>
+                        <div class="attr2" id="tipe1" onclick=<%='rom_button('
+                            +products.price+','+products.price2+','+products.price3+','+products.rom+','+products.rom2+','+products.rom3+')'
+                            %> >
+                            <%= products.rom %>
+                        </div>
+                        <div class="attr2" id="tipe2" onclick=<%='rom_button('
+                            +products.price+','+products.price2+','+products.price3+','+products.rom+','+products.rom2+','+products.rom3+')'
+                            %>>
+                            <%= products.rom2 %>
+                        </div>
+                        <div class="attr2" id="tipe3" onclick=<%='rom_button('
+                            +products.price+','+products.price2+','+products.price3+','+products.rom+','+products.rom2+','+products.rom3+')'
+                            %>>
+                            <%= products.rom3 %>
+                        </div>
+                    </div>
+                </div>
+                <div class="section" style="padding-bottom:20px;">
+                    <h6 class="title-attr"><small>Quantity</small></h6>
+                    <div>
+                        <div class="btn" id="kurang" style="border: 1px solid black;"><img src="icon/minus.png"
+                                width="10px"><span class="glyphicon glyphicon-minus"></span></div>
+                        <input value="1" id="jumlah" />
+                        <div class="btn" id="tambah" style="border: 1px solid black;"><img src="icon/plus.png"
+                                width="10px"><span class="glyphicon glyphicon-plus"></span></div>
+                    </div>
+                </div>
+
+                <div class="section" style="padding-bottom: 20px;">
+                    <h6 class="title-attr"><small>Price</small></h6>
+                    <p>Rp.<input value="0" disabled style="border: none;" id="harga"></p>
+                </div>
+
+                <div class="section" style="padding-bottom:20px;">
+                    <% if (!i_user) { %>
+                        <a href="/login"><button class="btn btn-success" id="cart"><span style="margin-right:20px"
+                                    class="glyphicon glyphicon-shopping-cart" aria-hidden="true"><img
+                                        src="icon/cart.png" width="20px" style="float: left;"></span> Add to
+                                Cart</button></a>
+                        <a href="/login"><button class="btn btn-success" id="wish" style="margin-top: 10px;"><span
+                                    style="margin-right:20px" class="glyphicon glyphicon-shopping-cart"
+                                    aria-hidden="true"><img src="icon/wishlist.png" width="20px"
+                                        style="float: left;"></span> Add to Wishlist</button></a>
+                        <% } else { %>
+                            <button onclick="cart()" class="btn btn-success" id="cart"><span style="margin-right:20px"
+                                    class="glyphicon glyphicon-shopping-cart" aria-hidden="true"><img
+                                        src="icon/cart.png" width="20px" style="float: left;"></span> Add to
+                                Cart</button>
+                            <button onclick="wish()" class="btn btn-success" id="wish" style="margin-top: 10px;"><span
+                                    style="margin-right:20px" class="glyphicon glyphicon-shopping-cart"
+                                    aria-hidden="true"><img src="icon/wishlist.png" width="20px"
+                                        style="float: left;"></span> Add to
+                                Wishlist</button>
+                            <% } %>
+                </div>
+            </div>
+
+            <div><input type="text" id="rom" value="" style="visibility: hidden;">
+                <input type="text" id="color" value="" style="visibility: hidden;">
+                <input type="text" id="photo" value="<%= products.photo %> " style="visibility: hidden;">
+                <input type="text" id="name" value="<%= products.name %> " style="visibility: hidden;">
+                <input type="text" id="pro" value="<%= products.id %> " style="visibility: hidden;">
+                <input type="text" id="price" value="" style="visibility: hidden;">
+            </div>
+
+            <div class="col-xs-9" style="position: static; width: 100%;">
+                <ul class="menu-items">
+                    <li class="active" id="detail" onclick="detail('<%= products.details %>')">Details</li>
+                    <li id="box" onclick="box('<%= products.box %>')">Box Include</li>
+                </ul>
+                <div style="width:80%;border-top:1px solid silver" id="details">
+                    <p style="padding:15px;" id="isian">
+                        <small>
+                           <%= products.details %> 
+                        </small>
+                    </p>
+
+                </div>
+            </div>
+        </div>
+    </div>
+    <footer>
+        <div id="contact" class="footer">
+            <div class="container">
+                <div class="row pdn-top-30">
+                    <div class="col-md-12 ">
+                        <div class="footer-box">
+                            <div class="headinga">
+                                <h3>Address</h3>
+                                <span>Medan</span>
+                                <p>(+62)8135269343
+                                    <br>uniphone@gmail.com
+                                </p>
+                            </div>
+                            <ul class="location_icon">
+                                <li> <a href="https://www.facebook.com"><i class="fa fa-facebook-f"></i></a></li>
+                                <li> <a href="https://twitter.com/?lang=en"><i class="fa fa-twitter"></i></a></li>
+                                <li> <a href="https://www.instagram.com/"><i class="fa fa-instagram"></i></a></li>
+
+                            </ul>
+                            <div class="menu-bottom">
+                                <ul class="link">
+                                    <li> <a href="/">Home</a></li>
+                                    <li> <a href="/about">About</a></li>
+                                    <li> <a href="/product">Brand </a></li>
+                                    <li> <a href="/"> Contact us</a></li>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="copyright">
+                <div class="container">
+                    <p>Copyright &copy; 2021 UniPhone. All rights reserved</p>
+                </div>
+            </div>
+        </div>
+    </footer>
+    <!-- Javascript files-->
+    <script src="js/jquery.min.js"></script>
+    <script src="js/popper.min.js"></script>
+    <script src="js/bootstrap.bundle.min.js"></script>
+    <script src="js/jquery-3.0.0.min.js"></script>
+    <script src="js/plugin.js"></script>
+    <script src="js/productdetails.js"></script>
+    <!-- sidebar -->
+    <script src="js/jquery.mCustomScrollbar.concat.min.js"></script>
+    <script src="js/custom.js"></script>
+    <!-- javascript -->
+    <script src="js/owl.carousel.js"></script>
+    <script src="https:cdnjs.cloudflare.com/ajax/libs/fancybox/2.1.5/jquery.fancybox.min.js"></script>
+    <script>
+        $(document).ready(function () {
+            $(".fancybox").fancybox({
+                openEffect: "none",
+                closeEffect: "none"
+            });
+
+            $(".zoom").hover(function () {
+
+                $(this).addClass('transition');
+            }, function () {
+
+                $(this).removeClass('transition');
+            });
+        });
+    </script>
+    <script>
+        color = document.getElementById("color")
+        document.getElementById("color1").onclick = function () {
+            color.value = "blue"
+        }
+        document.getElementById("color2").onclick = function () {
+            color.value = "black"
+        }
+        document.getElementById("color3").onclick = function () {
+            color.value = "white"
+        }
+    </script>
+    <script>
+        let detBut = (a, b) => {
+            contoh = document.getElementById("contoh");
+            isian = document.getElementById("isian");
+            document.getElementById("details").onclick = () => {
+                contoh.value = "details"
+                isian.innerHTML = "details"
+            }
+            document.getElementById("box").onclick = () => {
+                contoh.value = "box"
+                isian.innerHTML = "box"
+            }
+        }
+    </script>
+    <script>
+        let rom_button = (a, b, c, d, e, f) => {
+            const harga = document.getElementById("harga");
+            const jumlah = document.getElementById("jumlah");
+            const price = document.getElementById("price");
+            let rom = document.getElementById("rom");
+            let akhir = ""
+            const temp = a;
+            const temp2 = b;
+            const temp3 = c;
+            document.getElementById("tipe1").onclick = function () {
+                harga.value = a
+                harga.value = temp * jumlah.value
+                akhir = harga.value
+                rom.value = d
+                price.value = a
+                document.getElementById("tambah").onclick = () => {
+                    jumlah.value = parseInt(jumlah.value) + 1
+                    harga.value = temp * jumlah.value
+                }
+                document.getElementById("kurang").onclick = () => {
+                    console.log(temp, akhir)
+                    jumlah.value = parseInt(jumlah.value) - 1
+                    harga.value -= temp
+                }
+            }
+            document.getElementById("tipe2").onclick = function () {
+                harga.value = b
+                harga.value = temp2 * jumlah.value
+                akhir = harga.value
+                rom.value = e
+                price.value = b
+                document.getElementById("tambah").onclick = () => {
+                    jumlah.value = parseInt(jumlah.value) + 1
+                    harga.value = temp2 * jumlah.value
+                }
+                document.getElementById("kurang").onclick = () => {
+                    jumlah.value = parseInt(jumlah.value) - 1
+                    harga.value -= temp2
+                }
+            }
+            document.getElementById("tipe3").onclick = function () {
+                harga.value = c
+                harga.value = temp3 * jumlah.value
+                akhir = harga.value
+                rom.value = f
+                price.value = c
+                document.getElementById("tambah").onclick = () => {
+                    jumlah.value = parseInt(jumlah.value) + 1
+                    harga.value = temp3 * jumlah.value
+                }
+                document.getElementById("kurang").onclick = () => {
+                    jumlah.value = parseInt(jumlah.value) - 1
+                    harga.value -= temp3
+                }
+            }
+        }
+    </script>
+    <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
+    <script>
+        let wish = () => {
+            axios({
+                method: 'post',
+                url: '/api/wish',
+                data: {
+                    product_id: document.getElementById("pro").value,
+                    photo: document.getElementById("photo").value,
+                    name: document.getElementById("name").value,
+                    rom: document.getElementById("rom").value,
+                    color: document.getElementById("color").value,
+                    price: document.getElementById("price").value
+                }
+            }).then((result) => {
+                window.location = "/product";
+            }).catch((err) => {
+                alert('error ' + err)
+            });
+        }
+    </script>
+    <script>
+        let cart = () => {
+            axios({
+                method: 'post',
+                url: '/api/cart',
+                data: {
+                    product_id: document.getElementById("pro").value,
+                    photo: document.getElementById("photo").value,
+                    name: document.getElementById("name").value,
+                    rom: document.getElementById("rom").value,
+                    color: document.getElementById("color").value,
+                    price: document.getElementById("price").value,
+                    quantity: document.getElementById("jumlah").value
+                }
+            }).then((result) => {
+                window.location = "/product";
+            }).catch((err) => {
+                alert('error ' + err)
+            });
+        }
+    </script>
+    <script>
+        let detail = (a) => {
+            let isian = document.getElementById("isian")
+            isian.innerHTML = "<small> "+a+" </small>"
+        }
+        let box = (a) => {
+            let isian = document.getElementById("isian")
+            isian.innerHTML = "<small> "+a+" </small>"
+        }
+    </script>
+</body>
+
+</html>
