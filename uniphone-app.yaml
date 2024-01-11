@@ -1,0 +1,46 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: uniphone-app
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: uniphone-app
+  template:
+    metadata:
+      labels:
+        app: uniphone-app
+    spec:
+      containers:
+      - name: uniphone-app
+        image: kevin0506/webserver
+        env:
+        - name: MYSQL_DATABASE
+          value: uniphone_db
+        - name: MYSQL_USER
+          value: root
+        - name: MYSQL_PASSWORD
+          value: password
+        - name: MYSQL_HOST
+          value: uniphone-db
+        resources:
+          limits:
+            memory: "512Mi"
+            cpu: "500m"
+      restartPolicy: Always
+      
+
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: uniphone-app
+spec:
+  selector:
+    app: uniphone-app
+  ports:
+    - protocol: TCP
+      port: 80
+      targetPort: 8080
+  type: LoadBalancer
